@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import InfoCard from '../components/InfoCard'
 import { format } from 'date-fns'
 
-import housesData from '../data/houses.json'
+//import housesData from '../data/houses.json'
 
 function Search({ searchResults }) {
 
@@ -43,7 +43,7 @@ function Search({ searchResults }) {
                                 key={img}
                                 img={img}
                                 location={location}
-                                ttile={title}
+                                title={title}
                                 description={description}
                                 star={star}
                                 price={price}
@@ -61,13 +61,13 @@ function Search({ searchResults }) {
 
 export default Search
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     
     
-    const searchResults = housesData
+    //const searchResults = housesData
 
-    // const searchResults = await fetch('https://links.papareact.com/isz')
-    // .then(res => res.json())
+    const searchResults = await fetch('https://links.papareact.com/isz')
+    .then(res => res.json())
 
     return {
         props: {
