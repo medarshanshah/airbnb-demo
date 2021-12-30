@@ -2,9 +2,12 @@ import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import InfoCard from '../components/InfoCard'
 import { format } from 'date-fns'
 
-function Search() {
+import housesData from '../data/houses.json'
+
+function Search({ searchResults }) {
 
     const router = useRouter()
 
@@ -32,6 +35,22 @@ function Search() {
                         <p className='button'>Rooms and Beds</p>
                         <p className='button'>More filters</p>
                     </div>
+
+                    <div>
+                        {searchResults.map(({ img, location, title, description,
+                            star, price, total }) => (
+                            <InfoCard 
+                                key={img}
+                                img={img}
+                                location={location}
+                                ttile={title}
+                                description={description}
+                                star={star}
+                                price={price}
+                                total={total}
+                            />
+                        ))}
+                    </div>
                 </section>
             </main>
 
@@ -41,3 +60,18 @@ function Search() {
 }
 
 export default Search
+
+export async function getServerSideProps(context) {
+    
+    
+    const searchResults = housesData
+
+    // const searchResults = await fetch('https://links.papareact.com/isz')
+    // .then(res => res.json())
+
+    return {
+        props: {
+            searchResults,
+        }
+    }
+}
